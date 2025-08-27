@@ -22,6 +22,14 @@
       ],
       "run_at": "document_end",
       "world": "MAIN"
+    },
+    {
+      "js": [
+        "src/get_storage.js"
+      ],
+      "matches": [
+        "https://neal.fun/infinite-craft/*"
+      ]
     }
   ],
   "action": {
