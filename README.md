@@ -5,6 +5,13 @@ This Project uses the Javascript implementation of the Neuro Game SDK by "AriesA
 
 ## Install
 
+To Install the Infineuro Craft Extension you need to follow these steps:
+
+1. Download this project (via git clone or as zip file that you then unpack)
+2. Open the Chrome Extensions Page: chrome://extensions/
+3. Activate Developer Mode in the upper right corner
+4. Click "Load Unpacked" and choose the root folder of this Project
+
 *TODO*
 
 ## Credits
