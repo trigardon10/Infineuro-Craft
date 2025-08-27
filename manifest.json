@@ -8,9 +8,26 @@
     "48": "images/logo_small_48.png",
     "128": "images/logo_small.png"
   },
-  "content_scripts": [],
+  "content_scripts": [
+    {
+      "js": [
+        "src/neuro-game-sdk.min.js",
+        "src/infineuro.js"
+      ],
+      "css": [
+        "src/infineuro.css"
+      ],
+      "matches": [
+        "https://neal.fun/infinite-craft/*"
+      ],
+      "run_at": "document_end",
+      "world": "MAIN"
+    }
+  ],
   "action": {
     "default_popup": "src/popup.html"
   },
-  "permissions": ["storage"]
+  "permissions": [
+    "storage"
+  ]
 }
