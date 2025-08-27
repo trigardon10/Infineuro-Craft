@@ -3,7 +3,11 @@
   "name": "Infineuro Craft",
   "description": "Neuro SDK Integration for Infinite Craft",
   "version": "1.0",
-  "icons": {},
+  "icons": {
+    "32": "images/logo_small_32.png",
+    "48": "images/logo_small_48.png",
+    "128": "images/logo_small.png"
+  },
   "content_scripts": [],
   "action": {
     "default_popup": "src/popup.html"
