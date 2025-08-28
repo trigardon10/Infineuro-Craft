@@ -125,7 +125,7 @@ function neuroConnected() {
   });
 
   neuroClient.sendContext(
-    'Game started. You can Craft any two items together to create new items. Your currently available items are: ' +
+    'Infinite Craft is a crafting game where you can make anything you want. You can craft any two available items together to create a new item. That new item then also becomes available for crafting. Your currently available items are: ' +
       getItemList(),
     false
   );
