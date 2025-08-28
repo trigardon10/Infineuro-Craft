@@ -15,7 +15,7 @@ To Install the Infineuro Craft Extension you need to follow these steps:
 5. Open the extension and set the Neuro API URL
 6. Open Infinite Craft and enjoy Neuro playing the game
 
-If you get the Message "Websocket Error" then your API URL is probably not correct. The full Error can be found in the Chrome Developer Console.  
+If you get the message "Websocket Error" then your API URL is probably not correct. The full error can be found in the Chrome Developer Console.  
 For the sounds to work you need to click anywhere inside the page once. Chrome does not allow playing audio otherwise.
 
 ## Future Plans
