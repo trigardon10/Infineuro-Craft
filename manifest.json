@@ -10,32 +10,20 @@
   },
   "content_scripts": [
     {
-      "js": [
-        "src/neuro-game-sdk.min.js",
-        "src/infineuro.js"
-      ],
-      "css": [
-        "src/infineuro.css"
-      ],
-      "matches": [
-        "https://neal.fun/infinite-craft/*"
-      ],
+      "js": ["src/neuro-game-sdk.min.js", "src/infineuro.js"],
+      "css": ["src/infineuro.css"],
+      "matches": ["https://neal.fun/infinite-craft/*"],
       "run_at": "document_end",
       "world": "MAIN"
     },
     {
-      "js": [
-        "src/get_storage.js"
-      ],
-      "matches": [
-        "https://neal.fun/infinite-craft/*"
-      ]
+      "js": ["src/get_storage.js"],
+      "matches": ["https://neal.fun/infinite-craft/*"],
+      "run_at": "document_start"
     }
   ],
   "action": {
     "default_popup": "src/popup.html"
   },
-  "permissions": [
-    "storage"
-  ]
+  "permissions": ["storage"]
 }
