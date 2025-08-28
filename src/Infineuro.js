@@ -8,6 +8,8 @@ const GAME_NAME = 'Infinite Craft';
 let url;
 let infinitecraft;
 let neuroClient;
+let craftSound;
+let newCraftSound;
 
 init();
 
@@ -26,6 +28,18 @@ function init() {
   sidebar.scrollTop = sidebar.scrollHeight;
 
   document.getElementById('infinite-craft-center-ad')?.remove();
+
+  craftSound = new Howl({
+    src: ["/infinite-craft/instance.mp3"],
+    volume: .5
+  })
+
+  newCraftSound = new Howl({
+    src: ["/infinite-craft/reward.mp3"],
+    volume: .5
+  })
+
+  Howler.autoSuspend = false;
 
   startNeuroClient();
 }
@@ -126,7 +140,7 @@ function neuroConnected() {
 
   neuroClient.sendContext(
     'Infinite Craft is a crafting game where you can make anything you want. You can craft any two available items together to create a new item. That new item then also becomes available for crafting. Your currently available items are: ' +
-      getItemList(),
+    getItemList(),
     false
   );
 }
@@ -154,18 +168,41 @@ async function craft(first, second) {
   const secondElementText = secondElement.emoji + ' ' + secondElement.text;
   return infinitecraft.craft({ text: first }, { text: second }).then((r) => {
     if (r) {
+      // Crafting successful
       showToast(
         'Craftet: ' +
-          firstElementText +
-          ' + ' +
-          secondElementText +
-          ' = ' +
-          r.instance.emoji +
-          ' ' +
-          r.instance.text
+        firstElementText +
+        ' + ' +
+        secondElementText +
+        ' = ' +
+        r.instance.emoji +
+        ' ' +
+        r.instance.text
       );
+
       // Show craftet Element in a random position
-      IC?.createInstance({ ...r.instance, ...getRandomPosition() });
+      const instance = IC?.createInstance({ ...r.instance, ...getRandomPosition(), animate: true });
+
+      // Play sound
+      if (Howler.state == 'running') {
+        const pitches = [.9, 1];
+        const sound = r.isNew ? newCraftSound : craftSound;
+        sound.rate(pitches[Math.floor(Math.random() * pitches.length)]);
+        sound.play();
+      }
+
+      // Show animation for new item
+      if (instance && r.isNew) {
+        instance.element.classList.add("instance-pinwheel"),
+          instance.pinwheelStart = performance.now(),
+          setTimeout((function () {
+            instance.element.classList.remove("instance-pinwheel"),
+              delete instance.pinwheelStart
+          }
+          ), 3050)
+      }
+
+      // Build message for neuro
       msg = 'Successfully crafted item: ' + r.instance.text + '.';
       if (r.isNew) {
         msg += ' This item is new.';
@@ -173,6 +210,7 @@ async function craft(first, second) {
         msg += ' You already had this item.';
       }
     } else {
+      // Items cannot be crafted
       showToast(
         'Unable to craft: ' + firstElementText + ' + ' + secondElementText
       );
@@ -213,7 +251,9 @@ async function getStorage() {
     document.dispatchEvent(new CustomEvent('INFINEURO_GET_STORAGE', {}));
   });
 }
-
+/**
+ * Get random x and y coordinates for newly crafted items
+ */
 function getRandomPosition() {
   const paddingX = 100;
   const paddingY = 50;
