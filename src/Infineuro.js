@@ -113,8 +113,8 @@ function neuroConnected() {
     switch (actionData.name) {
       case 'craft':
         craft(
-          actionData.params.first_item?.toLowerCase(),
-          actionData.params.second_item?.toLowerCase()
+          actionData.params.first_item,
+          actionData.params.second_item
         ).then(
           (msg) => neuroClient.sendActionResult(actionData.id, true, msg),
           (err) =>
@@ -150,7 +150,9 @@ function neuroConnected() {
  * This function gets called when Neuro sends the action to craft.
  * The message does not contain the emojis of the items, because they are probably confusing for Neuro.
  */
-async function craft(first, second) {
+async function craft(first_param, second_param) {
+  const first = first_param?.toString().toLowerCase();
+  const second = second_param?.toString().toLowerCase();
   const firstElement = infinitecraft.items.find(
     (el) => el.text?.toLowerCase() === first
   );
