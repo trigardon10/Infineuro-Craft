@@ -164,9 +164,8 @@ async function craft(first, second) {
           ' ' +
           r.instance.text
       );
-      // Preparation for showing craftet Elements
-      // x.dispatchEvent(new MouseEvent('mousedown', {bubbles:true}));
-      // x.dispatchEvent(new MouseEvent('mouseup', {bubbles:true, clientX:window.innerHeight, clientY:window.innerWidth}));
+      // Show craftet Element in a random position
+      IC?.createInstance({ ...r.instance, ...getRandomPosition() });
       msg = 'Successfully crafted item: ' + r.instance.text + '.';
       if (r.isNew) {
         msg += ' This item is new.';
@@ -214,6 +213,18 @@ async function getStorage() {
     document.dispatchEvent(new CustomEvent('INFINEURO_GET_STORAGE', {}));
   });
 }
+
+function getRandomPosition() {
+  const paddingX = 100;
+  const paddingY = 50;
+  const maxX = window.innerWidth - infinitecraft.sidebarWidth - 2 * paddingX;
+  const maxY = window.innerHeight - 2 * paddingY;
+  return {
+    x: Math.round(maxX * Math.random()) + paddingX,
+    y: Math.round(maxY * Math.random()) + paddingY,
+  };
+}
+
 /**
  * Shows a message in the Bottom of the screen.
  * This gets called to show what Neuro crafts.
