@@ -144,7 +144,7 @@ async function craft(first, second) {
     (el) => el.text?.toLowerCase() === second
   );
   if (!firstElement || !secondElement) {
-    // One of the elements are not available -> Send error to Neuro
+    // One of the elements is not available -> Send error to Neuro
     throw new Error(
       'Item ' + (!firstElement ? first : second) + ' is not available.'
     );
@@ -164,6 +164,9 @@ async function craft(first, second) {
           ' ' +
           r.instance.text
       );
+      // Preparation for showing craftet Elements
+      // x.dispatchEvent(new MouseEvent('mousedown', {bubbles:true}));
+      // x.dispatchEvent(new MouseEvent('mouseup', {bubbles:true, clientX:window.innerHeight, clientY:window.innerWidth}));
       msg = 'Successfully crafted item: ' + r.instance.text + '.';
       if (r.isNew) {
         msg += ' This item is new.';
